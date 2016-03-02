@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-deployer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Facilitates deploying multiple Node.js-based AWS Lambda functions to multiple environments.",
   "main": "index.js",
   "author": "Zentrick nv (https://www.zentrick.com/)",
