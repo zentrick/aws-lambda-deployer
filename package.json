@@ -22,9 +22,7 @@
     "test": "gulp test"
   },
   "repository": "zentrick/aws-lambda-deployer",
-  "bugs": {
-    "url": "https://github.com/zentrick/aws-lambda-deployer/issues"
-  },
+  "bugs": "https://github.com/zentrick/aws-lambda-deployer/issues",
   "dependencies": {
     "archiver": "^0.21.0",
     "babel-runtime": "^6.5.0",
