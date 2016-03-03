@@ -41,7 +41,7 @@ containing at least the following files:
 * `meta.json`
 
 The `meta.json` file configures the function's `timeout` (in seconds) and
-`memory` allocation in (megabytes):
+`memory` allocation (in megabytes):
 
 ```json
 {
