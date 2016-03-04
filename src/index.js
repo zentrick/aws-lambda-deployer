@@ -31,7 +31,7 @@ export default class AwsLambdaDeployer extends EventEmitter {
       prefix: '',
       concurrency: 3,
       functionDirTemplate: '<%= functionName %>',
-      metaPathTemplate: '<%= functionName %>/meta.json',
+      metaPathTemplate: '<%= functionDir %>/meta.json',
       descriptionTemplate: 'Deployed on <%= new Date().toUTCString() %>'
     }, options)
     this._functionDirTemplate = template(this._options.functionDirTemplate)
@@ -60,7 +60,7 @@ export default class AwsLambdaDeployer extends EventEmitter {
   _createPackage (functionName) {
     const functionDir = this._functionDirTemplate({functionName})
     const zipFilePath = this._toZipPath(functionName)
-    const metaFilePath = this._metaPathTemplate({functionName})
+    const metaFilePath = this._metaPathTemplate({functionName, functionDir})
     const eventData = {functionName, functionDir, zipFilePath, metaFilePath}
     this.emit('willPackageFunction', eventData)
     this.emit('willReadFunctionMetaFile', eventData)

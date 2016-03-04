@@ -23,7 +23,7 @@ const options = {
   handler: 'index.handler',
   role: null,
   functionDirTemplate: '<%= functionName %>',
-  metaPathTemplate: '<%= functionName %>/meta.json',
+  metaPathTemplate: '<%= functionDir %>/meta.json',
   descriptionTemplate: 'Deployed on <%= new Date().toUTCString() %>',
   concurrency: 3
 }
@@ -109,8 +109,9 @@ containing the `functionName`.
 
 ### metaPathTemplate
 
-Similar to the path to the function directory, you can override the path to each
-function's `meta.json` file using this option.
+Similar to the path to the function directory, this option configures the path
+to each function's `meta.json` file. You can use the parameters `functionName`
+and `functionDir`.
 
 ### descriptionTemplate
 
