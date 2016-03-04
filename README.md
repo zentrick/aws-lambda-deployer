@@ -41,14 +41,16 @@ containing at least the following files:
 * `meta.json`
 
 The `meta.json` file configures the function's `timeout` (in seconds) and
-`memory` allocation (in megabytes):
+`memorySize` (in megabytes):
 
 ```json
 {
   "timeout": 3,
-  "memory": 256
+  "memorySize": 256
 }
 ```
+
+You can also use `memory` as an alias for `memorySize`.
 
 ## API
 
