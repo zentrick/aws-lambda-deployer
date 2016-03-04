@@ -94,9 +94,10 @@ export default class AwsLambdaDeployer extends EventEmitter {
 
   _deployPackage (functionName, environmentName) {
     const zipFilePath = this._toZipPath(functionName)
+    const zipFileSize = this._sizeByZip[zipFilePath]
     const remoteFunctionName = this._options.prefix + ((environmentName != null) ? `${environmentName}-` : '') + functionName
     const functionMeta = this._metaByFunctionName[functionName]
-    const eventData = {environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize: this._sizeByZip[zipFilePath]}
+    const eventData = {environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize}
     this.emit('willDeployFunction', eventData)
     const config = {
       region: this._options.region,
