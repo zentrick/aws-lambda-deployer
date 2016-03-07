@@ -164,6 +164,25 @@ deployer.on('didDeployFunction', ({environmentName, functionName, remoteFunction
   console.info('Deployed function', functionName, 'to environment', environmentName, 'as', remoteFunctionName))
 ```
 
+## Gulp
+
+If your goal is to deploy Lambda functions from a [Gulp](http://gulpjs.com/)
+task, look no further. You can just return `deployer.run()` from your task:
+
+```js
+gulp.task('deploy', () => {
+  const functionNames = [] // See above
+  const options = {}       // See above
+  const deployer = new AwsLambdaDeployer(functionNames, options)
+  // ... Optionally attach any event listeners here ...
+  return deployer.run()
+})
+```
+
+For the sake of consistency, you may want to replace `console.info` calls with
+[`gulp-util` logs](https://www.npmjs.com/package/gulp-util#logmsg) in your
+event listeners.
+
 ## Maintainer
 
 - [Tim De Pauw](https://github.com/timdp)
