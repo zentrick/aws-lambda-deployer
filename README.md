@@ -52,6 +52,10 @@ The `meta.json` file configures the function's `timeout` (in seconds) and
 
 You can also use `memory` as an alias for `memorySize`.
 
+To provide your access key ID and secret access key for AWS, use any of the
+[standard mechanisms](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html).
+It is not possible to pass your credentials to a deployer directly.
+
 ## API
 
 ### new AwsLambdaDeployer(functionNames, options)
