@@ -7,6 +7,15 @@
   "contributors": [
     "Tim De Pauw <tim.depauw@zentrick.com>"
   ],
+  "keywords": [
+    "aws",
+    "lambda",
+    "deploy",
+    "zip",
+    "bulk",
+    "batch",
+    "gulp"
+  ],
   "engines": {
     "node": ">=0.12.0"
   },
