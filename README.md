@@ -1,6 +1,6 @@
 # aws-lambda-deployer
 
-[![npm](https://img.shields.io/npm/v/aws-lambda-deployer.svg)](https://www.npmjs.com/package/aws-lambda-deployer) [![Dependencies](https://img.shields.io/david/zentrick/aws-lambda-deployer.svg)](https://david-dm.org/zentrick/aws-lambda-deployer) [![Build Status](https://img.shields.io/travis/zentrick/aws-lambda-deployer.svg)](https://travis-ci.org/zentrick/aws-lambda-deployer) [![Coverage Status](https://img.shields.io/coveralls/zentrick/aws-lambda-deployer.svg)](https://coveralls.io/r/zentrick/aws-lambda-deployer) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![npm](https://img.shields.io/npm/v/aws-lambda-deployer.svg)](https://www.npmjs.com/package/aws-lambda-deployer) [![Dependencies](https://img.shields.io/david/zentrick/aws-lambda-deployer.svg)](https://david-dm.org/zentrick/aws-lambda-deployer) [![Build Status](https://img.shields.io/travis/zentrick/aws-lambda-deployer/master.svg)](https://travis-ci.org/zentrick/aws-lambda-deployer) [![Coverage Status](https://img.shields.io/coveralls/zentrick/aws-lambda-deployer/master.svg)](https://coveralls.io/r/zentrick/aws-lambda-deployer) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 Facilitates deploying multiple Node.js-based AWS Lambda functions to multiple
 environments.
