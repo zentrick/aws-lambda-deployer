@@ -19,21 +19,24 @@ const lambdaDeploy = pify(awsLambda.deploy).bind(awsLambda)
 
 const npm = path.resolve(__dirname, '../node_modules/.bin/npm')
 
+const DEFAULT_OPTIONS = {
+  environments: [],
+  region: 'us-east-1',
+  handler: 'index.handler',
+  role: null,
+  prefix: '',
+  concurrency: 3,
+  functionDirTemplate: '<%= functionName %>',
+  metaPathTemplate: '<%= functionDir %>/meta.json',
+  descriptionTemplate: 'Deployed on <%= new Date().toUTCString() %>',
+  runtime: 'nodejs'
+}
+
 export default class AwsLambdaDeployer extends EventEmitter {
   constructor (functionNames, options = {}) {
     super()
     this._functionNames = functionNames
-    this._options = Object.assign({
-      environments: [],
-      region: 'us-east-1',
-      handler: 'index.handler',
-      role: null,
-      prefix: '',
-      concurrency: 3,
-      functionDirTemplate: '<%= functionName %>',
-      metaPathTemplate: '<%= functionDir %>/meta.json',
-      descriptionTemplate: 'Deployed on <%= new Date().toUTCString() %>'
-    }, options)
+    this._options = Object.assign(DEFAULT_OPTIONS, options)
     this._functionDirTemplate = template(this._options.functionDirTemplate)
     this._metaPathTemplate = template(this._options.metaPathTemplate)
     this._descriptionTemplate = template(this._options.descriptionTemplate)
@@ -108,7 +111,7 @@ export default class AwsLambdaDeployer extends EventEmitter {
       description: this._descriptionTemplate(descriptionParams),
       timeout: functionMeta.timeout,
       memorySize: functionMeta.memorySize || functionMeta.memory,
-      runtime: 'nodejs'
+      runtime: this._options.runtime
     }
     return lambdaDeploy(zipFilePath, config)
       .then(() => this.emit('didDeployFunction', eventData))

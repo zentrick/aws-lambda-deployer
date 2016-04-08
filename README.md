@@ -25,7 +25,8 @@ const options = {
   functionDirTemplate: '<%= functionName %>',
   metaPathTemplate: '<%= functionDir %>/meta.json',
   descriptionTemplate: 'Deployed on <%= new Date().toUTCString() %>',
-  concurrency: 3
+  concurrency: 3,
+  runtime: 'nodejs'
 }
 const deployer = new AwsLambdaDeployer(functionNames, options)
 deployer.run()
@@ -73,6 +74,9 @@ The default values for all options are shown in the example above.
 
 Note that all options currently apply to all functions, meaning you cannot (yet)
 override them on a per-function basis.
+
+To use Node.js 4.3 instead of the default 0.10 (recommended), add the option
+`runtime: 'nodejs4.3'`.
 
 ### environments
 
