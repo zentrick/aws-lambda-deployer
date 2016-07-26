@@ -8,6 +8,8 @@ import temp from 'temp'
 import pify from 'pify'
 import template from 'lodash.template'
 import spawn from 'cross-spawn-promise'
+import resolve from 'resolve'
+import readPkgUp from 'read-pkg-up'
 import zipDirectory from './util/zip-directory'
 import {EventEmitter} from 'events'
 import path from 'path'
@@ -17,7 +19,9 @@ const tempMkdir = pify(temp.mkdir).bind(temp)
 const tempCleanup = pify(temp.cleanup).bind(temp)
 const lambdaDeploy = pify(awsLambda.deploy).bind(awsLambda)
 
-const npm = path.resolve(__dirname, '../node_modules/.bin/npm')
+const npmModPath = resolve.sync('npm', {basedir: __dirname})
+const {pkg: npmPkg, path: npmPkgPath} = readPkgUp.sync({cwd: npmModPath})
+const npmCliPath = path.join(path.dirname(npmPkgPath), npmPkg.bin.npm)
 
 const DEFAULT_OPTIONS = {
   environments: [],
@@ -71,7 +75,7 @@ export default class AwsLambdaDeployer extends EventEmitter {
       .then((meta) => { this._metaByFunctionName[functionName] = meta })
       .then(() => this.emit('didReadFunctionMetaFile', eventData))
       .then(() => this.emit('willInstallFunction', eventData))
-      .then(() => spawn(npm, ['install', '--production'], {cwd: functionDir}))
+      .then(() => spawn(process.execPath, [npmCliPath, 'install', '--production'], {cwd: functionDir}))
       .then(() => this.emit('didInstallFunction', eventData))
       .then(() => this.emit('willZipFunction', eventData))
       .then(() => mkdirp(path.dirname(zipFilePath)))
