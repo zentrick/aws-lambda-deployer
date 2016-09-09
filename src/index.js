@@ -19,7 +19,7 @@ const tempMkdir = pify(temp.mkdir).bind(temp)
 const tempCleanup = pify(temp.cleanup).bind(temp)
 const lambdaDeploy = pify(awsLambda.deploy).bind(awsLambda)
 
-const npmModPath = resolve.sync('npm', { basedir: __dirname })
+const npmModPath = resolve.sync('npm', { basedir: path.join(__dirname, '..') })
 const { pkg: npmPkg, path: npmPkgPath } = readPkgUp.sync({ cwd: npmModPath })
 const npmCliPath = path.join(path.dirname(npmPkgPath), npmPkg.bin.npm)
 
