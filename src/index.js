@@ -11,7 +11,7 @@ import spawn from 'cross-spawn-promise'
 import resolve from 'resolve'
 import readPkgUp from 'read-pkg-up'
 import zipDirectory from './util/zip-directory'
-import {EventEmitter} from 'events'
+import { EventEmitter } from 'events'
 import path from 'path'
 
 const mkdirp = pify(mkdirp_)
@@ -19,8 +19,8 @@ const tempMkdir = pify(temp.mkdir).bind(temp)
 const tempCleanup = pify(temp.cleanup).bind(temp)
 const lambdaDeploy = pify(awsLambda.deploy).bind(awsLambda)
 
-const npmModPath = resolve.sync('npm', {basedir: __dirname})
-const {pkg: npmPkg, path: npmPkgPath} = readPkgUp.sync({cwd: npmModPath})
+const npmModPath = resolve.sync('npm', { basedir: __dirname })
+const { pkg: npmPkg, path: npmPkgPath } = readPkgUp.sync({ cwd: npmModPath })
 const npmCliPath = path.join(path.dirname(npmPkgPath), npmPkg.bin.npm)
 
 const DEFAULT_OPTIONS = {
@@ -58,24 +58,24 @@ export default class AwsLambdaDeployer extends EventEmitter {
   }
 
   _createPackages () {
-    const eventData = {functionNames: this._functionNames}
+    const eventData = { functionNames: this._functionNames }
     this.emit('willPackageFunctions', eventData)
-    return Promise.map(this._functionNames, (func) => this._createPackage(func), {concurrency: this._options.concurrency})
+    return Promise.map(this._functionNames, (func) => this._createPackage(func), { concurrency: this._options.concurrency })
       .then(() => this.emit('didPackageFunctions', eventData))
   }
 
   _createPackage (functionName) {
-    const functionDir = this._functionDirTemplate({functionName})
+    const functionDir = this._functionDirTemplate({ functionName })
     const zipFilePath = this._toZipPath(functionName)
-    const metaFilePath = this._metaPathTemplate({functionName, functionDir})
-    const eventData = {functionName, functionDir, zipFilePath, metaFilePath}
+    const metaFilePath = this._metaPathTemplate({ functionName, functionDir })
+    const eventData = { functionName, functionDir, zipFilePath, metaFilePath }
     this.emit('willPackageFunction', eventData)
     this.emit('willReadFunctionMetaFile', eventData)
     return fsp.readJson(metaFilePath)
       .then((meta) => { this._metaByFunctionName[functionName] = meta })
       .then(() => this.emit('didReadFunctionMetaFile', eventData))
       .then(() => this.emit('willInstallFunction', eventData))
-      .then(() => spawn(process.execPath, [npmCliPath, 'install', '--production'], {cwd: functionDir}))
+      .then(() => spawn(process.execPath, [npmCliPath, 'install', '--production'], { cwd: functionDir }))
       .then(() => this.emit('didInstallFunction', eventData))
       .then(() => this.emit('willZipFunction', eventData))
       .then(() => mkdirp(path.dirname(zipFilePath)))
@@ -89,12 +89,12 @@ export default class AwsLambdaDeployer extends EventEmitter {
   _deployPackages () {
     const environmentNames = (Array.isArray(this._options.environments) && this._options.environments.length > 0)
       ? this._options.environments : [null]
-    const eventData = {environmentNames}
+    const eventData = { environmentNames }
     this.emit('willDeployToEnvironments', eventData)
     return Promise.each(environmentNames, (environmentName) => {
-      const eventData = {environmentName, functionNames: this._functionNames}
+      const eventData = { environmentName, functionNames: this._functionNames }
       this.emit('willDeployFunctions', eventData)
-      return Promise.map(this._functionNames, (functionName) => this._deployPackage(functionName, environmentName), {concurrency: this._options.concurrency})
+      return Promise.map(this._functionNames, (functionName) => this._deployPackage(functionName, environmentName), { concurrency: this._options.concurrency })
         .then(() => this.emit('didDeployFunctions', eventData))
     }).then(() => this.emit('didDeployToEnvironments', eventData))
   }
@@ -104,7 +104,7 @@ export default class AwsLambdaDeployer extends EventEmitter {
     const zipFileSize = this._sizeByZip[zipFilePath]
     const remoteFunctionName = this._options.prefix + ((environmentName != null) ? `${environmentName}-` : '') + functionName
     const functionMeta = this._metaByFunctionName[functionName]
-    const eventData = {environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize}
+    const eventData = { environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize }
     const descriptionParams = eventData
     this.emit('willDeployFunction', eventData)
     const config = {

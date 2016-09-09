@@ -138,33 +138,33 @@ A deployer exposes a number of events for this purpose. Here's a boilerplate
 implementation of a verbose logger:
 
 ```js
-deployer.on('willPackageFunctions', ({functionNames}) =>
+deployer.on('willPackageFunctions', ({ functionNames }) =>
   console.info('Packaging', functionNames.length, 'function(s) ...'))
-deployer.on('didPackageFunctions', ({functionNames}) =>
+deployer.on('didPackageFunctions', ({ functionNames }) =>
   console.info('Packaged', functionNames.length, 'function(s)'))
-deployer.on('willPackageFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('willPackageFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Packaging function', functionName, '...'))
-deployer.on('didPackageFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('didPackageFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Packaged function', functionName))
-deployer.on('willInstallFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('willInstallFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Installing function', functionName, 'to', functionDir, '...'))
-deployer.on('didInstallFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('didInstallFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Installed function', functionName))
-deployer.on('willZipFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('willZipFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Zipping function', functionName, 'to', zipFilePath, '...'))
-deployer.on('didZipFunction', ({functionName, functionDir, zipFilePath, metaFilePath}) =>
+deployer.on('didZipFunction', ({ functionName, functionDir, zipFilePath, metaFilePath }) =>
   console.info('Zipped function', functionName))
-deployer.on('willDeployToEnvironments', ({environmentNames}) =>
+deployer.on('willDeployToEnvironments', ({ environmentNames }) =>
   console.info('Deploying to', environmentNames.length, 'environment(s) ...'))
-deployer.on('didDeployToEnvironments', ({environmentNames}) =>
+deployer.on('didDeployToEnvironments', ({ environmentNames }) =>
   console.info('Deployed to', environmentNames.length, 'environment(s)'))
-deployer.on('willDeployFunctions', ({environmentName, functionNames}) =>
+deployer.on('willDeployFunctions', ({ environmentName, functionNames }) =>
   console.info('Deploying', functionNames.length, 'function(s) to environment', environmentName, '...'))
-deployer.on('didDeployFunctions', ({environmentName, functionNames}) =>
+deployer.on('didDeployFunctions', ({ environmentName, functionNames }) =>
   console.info('Deployed', functionNames.length, 'function(s) to environment', environmentName))
-deployer.on('willDeployFunction', ({environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize}) =>
+deployer.on('willDeployFunction', ({ environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize }) =>
   console.info('Deploying function', functionName, 'to environment', environmentName, 'as', remoteFunctionName + ': uploading', zipFileSize, 'bytes ...'))
-deployer.on('didDeployFunction', ({environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize}) =>
+deployer.on('didDeployFunction', ({ environmentName, functionName, remoteFunctionName, zipFilePath, zipFileSize }) =>
   console.info('Deployed function', functionName, 'to environment', environmentName, 'as', remoteFunctionName))
 ```
 
