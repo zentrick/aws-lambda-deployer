@@ -70,5 +70,8 @@
   },
   "standard": {
     "parser": "babel-eslint"
+  },
+  "greenkeeper": {
+    "ignore": ["gulp-standard"]
   }
 }
