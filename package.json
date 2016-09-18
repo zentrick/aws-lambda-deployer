@@ -72,6 +72,9 @@
     "parser": "babel-eslint"
   },
   "greenkeeper": {
-    "ignore": ["gulp-standard"]
+    "ignore": [
+      "gulp-standard",
+      "npm"
+    ]
   }
 }
