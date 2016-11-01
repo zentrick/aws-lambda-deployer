@@ -37,7 +37,7 @@
     "babel-runtime": "^6.11.6",
     "bluebird": "^3.4.6",
     "cross-spawn-promise": "^0.8.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "fs-promise": "^0.5.0",
     "lodash.template": "^4.4.0",
     "mkdirp": "^0.5.1",
